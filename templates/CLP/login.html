@@ -4,7 +4,7 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
-    <title>CodePen - Weekly Coding Challenge #1 - Double slider Sign in/up Form - Desktop Only</title>
+    <title>CLP | Login</title>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
     <link rel=stylesheet href="{% static 'css/loginStyle.css' %}" type="text/css">
 </head>
@@ -12,27 +12,16 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form action="#">
+            <form method="post">
                 <h1>Create Account</h1>
-                <!-- <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                </div> -->
-                <input type="text" placeholder="Name" />
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
-                <button>Sign Up</button>
+                {% csrf_token %} {{ user_form.as_table }} {{ profile_form.as_table }}
+                <button type="submit">Sign Up</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form action="#">
+            <form method="post">
+                <!-- {% csrf_token %} -->
                 <h1>Sign in</h1>
-                <!-- <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                </div> -->
                 <input type="email" placeholder="Email" />
                 <input type="password" placeholder="Password" />
                 <a href="#">Forgot your password?</a>
