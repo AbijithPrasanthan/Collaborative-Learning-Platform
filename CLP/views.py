@@ -6,45 +6,44 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib import messages
+
 # Create your views here.
 
 
 def index(request):
-    d = {
-        'insert_me': 'This is the view.py file'
-    }
-    return render(request, 'CLP/index.html', context=d)
+    d = {"insert_me": "This is the view.py file"}
+    return render(request, "CLP/index.html", context=d)
 
 
 def login_(request):
-    return render(request, 'CLP/home.html')
+    return render(request, "CLP/home.html")
 
 
 @login_required
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect(reverse('login'))
+    return HttpResponseRedirect(reverse("login"))
 
 
 def register(request):
     auth_user = False
     profile_form = UserProfileInfoForm()
     user_form = UserForm()
-    if request.method == 'POST' and 'signin' in request.POST:
-        username = request.POST.get('Username')
-        password = request.POST.get('Password')
+    if request.method == "POST" and "signin" in request.POST:
+        username = request.POST.get("Username")
+        password = request.POST.get("Password")
         user = authenticate(username=username, password=password)
         if user:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect(reverse('home'))
+                return HttpResponseRedirect(reverse("home"))
             else:
-                return HttpResponse('ACCOUNT NOT ACTIVE')
+                return HttpResponse("ACCOUNT NOT ACTIVE")
         else:
             auth_user = True
             print("SOMEONE TRIED TO LOGIN AND FAILED")
             print("Username: {} and password: {}".format(username, password))
-    elif request.method == 'POST' and 'signup' in request.POST:
+    elif request.method == "POST" and "signup" in request.POST:
         registered = False
         profile_form = UserProfileInfoForm(data=request.POST)
         user_form = UserForm(data=request.POST)
@@ -60,4 +59,8 @@ def register(request):
             registered = True
         else:
             print(user_form.errors)
-    return render(request, 'CLP/login.html', {'user_form': user_form, 'profile_form': profile_form, 'auth_user': auth_user})
+    return render(
+        request,
+        "CLP/login.html",
+        {"user_form": user_form, "profile_form": profile_form, "auth_user": auth_user},
+    )
