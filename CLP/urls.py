@@ -1,7 +1,7 @@
-from django.urls import path
 from django.conf.urls import include
-from CLP import views
+from django.urls import path
 
+from CLP import views
 
 urlpatterns = [
     path("login/", views.register, name="login"),
