@@ -2,6 +2,8 @@ from django import forms
 from CLP.models import UserProfileInfo
 from django.contrib.auth.models import User
 
+# =========================== REGISTRATION ===========================
+
 
 class UserProfileInfoForm(forms.ModelForm):
     rollno = forms.CharField(widget=forms.TextInput(
@@ -24,3 +26,10 @@ class UserForm(forms.ModelForm):
     class Meta():
         model = User
         fields = ['username', 'email', 'password']
+
+# =========================== FORGOT PASSWORD ===========================
+
+
+class ResetPassword(forms.Form):
+    email = forms.CharField(widget=forms.EmailInput(
+        attrs={'placeholder': 'Email'}))
