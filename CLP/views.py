@@ -67,5 +67,8 @@ def register(request):
     return render(
         request,
         "CLP/login.html",
-        {"user_form": user_form, "profile_form": profile_form},
+        {
+            "user_form": user_form,
+            "profile_form": profile_form
+        },
     )
