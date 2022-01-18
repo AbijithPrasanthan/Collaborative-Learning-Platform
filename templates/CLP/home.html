@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>SUCCESSFULLY LOGGED IN</h1>
+    <form action="{% url 'user_logout' %}" method="post">
+      {% csrf_token %}
+        <h1>Log Out</h1>
+        <button name='Logout'>Logout</button>
+
+    </form>
+  </body>
+</html>
