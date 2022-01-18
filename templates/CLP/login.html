@@ -10,8 +10,13 @@
 </head>
 
 <body>
+    {% if registered %}
+
+    <p>Congrats You have succesfully registered</p>
+
+    {% else %}
     <div class="container" id="container">
-        <div class="form-container sign-up-container">
+        <div class="form-container sign-up-container" id="register">
             <form method="post">
                 <h1>Create Account</h1>
                 {% csrf_token %} {{ user_form.as_table }} {{ profile_form.as_table }}
@@ -20,15 +25,21 @@
         </div>
         <div class="form-container sign-in-container">
 
-            <form action="{% url 'login' %}"method="post">
+            <form action="{% url 'login' %}" method="post">
                 {% csrf_token %}
                 <h1>Sign in</h1>
+                {% if auth_fail %}
+                <h3>Authentication failed</h3>
                 <input type="username" placeholder="Username" name="Username">
                 <input type="password" placeholder="Password" name="Password">
-                <a href="#">Forgot your password?</a>
+                <a href="/forgotpass">Forgot your password?</a>
 
-                <button name="signin">Sign In</button>
+                <button name="signin">Sign In</button> {% else %}
+                <input type="username" placeholder="Username" name="Username">
+                <input type="password" placeholder="Password" name="Password">
+                <a href="/forgotpass">Forgot your password?</a>
 
+                <button name="signin">Sign In</button> {% endif %}
             </form>
         </div>
         <div class="overlay-container">
@@ -48,6 +59,7 @@
     </div>
     <!-- partial -->
     <script src="{% static 'js/loginScript.js' %}"></script>
+    {% endif %}
 
 </body>
 

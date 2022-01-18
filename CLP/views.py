@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from CLP.forms import UserForm, UserProfileInfoForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate,login,logout
-from django.http import HttpResponseRedirect,HttpResponse
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib import messages
 # Create your views here.
@@ -19,6 +19,7 @@ def index(request):
 def login_(request):
     return render(request, 'CLP/home.html')
 
+
 @login_required
 def user_logout(request):
     logout(request)
@@ -26,6 +27,8 @@ def user_logout(request):
 
 
 def register(request):
+    registered = False
+    auth_fail = False
     if request.method == 'POST' and 'signin' in request.POST:
         username = request.POST.get('Username')
         password = request.POST.get('Password')
@@ -37,11 +40,9 @@ def register(request):
             else:
                 return HttpResponse('ACCOUNT NOT ACTIVE')
         else:
-            print("SOMEONE TRIED TO LOGIN AND FAILED")
-            print("Username: {} and password: {}".format(username,password))
-            return redirect('login')
+            auth_fail = True
+            return render(request, 'CLP/login.html', {'registered': registered, 'auth_fail': auth_fail})
     elif request.method == 'POST' and 'signup' in request.POST:
-        registered = False
         profile_form = UserProfileInfoForm(data=request.POST)
         user_form = UserForm(data=request.POST)
 
@@ -59,4 +60,4 @@ def register(request):
     else:
         profile_form = UserProfileInfoForm()
         user_form = UserForm()
-    return render(request, 'CLP/login.html', {'user_form': user_form, 'profile_form': profile_form})
+    return render(request, 'CLP/login.html', {'registered': registered, 'user_form': user_form, 'profile_form': profile_form, 'auth_fail': auth_fail})
