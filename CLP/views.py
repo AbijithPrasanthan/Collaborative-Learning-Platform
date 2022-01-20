@@ -60,3 +60,5 @@ def register(request):
         else:
             print(user_form.errors)
     return render(request, 'CLP/login.html', {'user_form': user_form, 'profile_form': profile_form, 'auth_user':auth_user})
+
+
