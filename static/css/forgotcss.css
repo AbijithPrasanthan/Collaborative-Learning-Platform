@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #ece0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+    height: 100vh;
+    margin: -20px 0 50px;
+}
+
+h1 {
+    font-weight: bold;
+    text-align: center;
+    color: #050000;
+    margin: 0;
+}
+
+h2,
+h4 {
+    text-align: center;
+}
+
+h5 {
+    text-align: center;
+    margin-top: 15%;
+    font-size: 1.2em;
+}
+
+button {
+    border-radius: 20px;
+    border: 1px solid #FF4B2B;
+    background-color: #FF4B2B;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    margin-left: 5%;
+    margin-bottom: 15%;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+
+.container {
+    background: #FF416C;
+    background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+    background: linear-gradient(to right, #FF4B2B, #FF416C);
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    width: 500px;
+    max-width: 100%;
+    min-height: 300px;
+}
+
+.inner_container {
+    background: white;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    margin: 15px;
+    max-width: 100%;
+    min-height: 80%;
+}
+
+form {
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+}
+
+input {
+    position: relative;
+    background-color: #eee;
+    border: none;
+    margin-left: -25%;
+    /*     margin-top: -20%;
+ */
+    padding: 12px 15px;
+    width: 150%;
+}
+
+.send_mail_text {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 15%;
+}
+
+li {
+    display: none
+}
+
+label {
+    color: #000
+}
+
+label[for="id_new_password2"] {
+    margin-top: 0;
+}
+
+#id_new_password1,
+#id_new_password2 {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+}
+
+button[id="reset_pass"] {
+    margin-bottom: 8%;
+}
+
+form[class="reset_pass_form"] {
+    display: block;
+}
+
+.reset_complete>p {
+    text-align: center;
+    font-weight: bold;
+}
+
+.reset_complete>a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.reset_complete>a>button {
+    margin-left: 0;
+    margin-top: 15px;
+}

@@ -1,3 +1,7 @@
+'''
+make email unique if not already
+'''
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -6,8 +10,8 @@ The default User model which is imported above comes with
     Username
     Email
     Password
-    First Name
-    Last Name
+    roll no
+    college name
 '''
 
 

@@ -33,3 +33,11 @@ class UserForm(forms.ModelForm):
 class ResetPassword(forms.Form):
     email = forms.CharField(widget=forms.EmailInput(
         attrs={'placeholder': 'Email'}))
+
+
+'''
+confirm password
+email verify if from valid college email
+    domain verify
+    otp send
+'''
