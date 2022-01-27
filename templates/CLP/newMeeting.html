@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <title>New Meeting</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+        <link rel="stylesheet" href="./css/newMeetingcss.css">
+        <link rel=stylesheet href="{% static 'css/newMeetingcss.css' %}" type="text/css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+    </head>
+    <body>
+
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#5000ca" fill-opacity="1" d="M0,288L80,277.3C160,267,320,245,480,213.3C640,181,800,139,960,133.3C1120,128,1280,160,1360,176L1440,192L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path></svg> -->
+    <!-- partial:index.partial.html -->
+
+
+    <!--------------------------------Search bar-------------------------------------------------------->
+    <!--<div class="search bar">
+        <form onsubmit="event.preventDefault();" role="search">
+            <label for="search">Search for stuff</label>
+            <input id="search" type="search" placeholder="Search..." autofocus required />
+            <button type="submit">Go</button>    
+        </form>
+    </div>-->
+
+    <!----------------------------------------------------------------------------------------------->
+    <div class="container" id="container">  
+            
+        <form action="#">
+            <h1>New Meeting</h1>
+            <input type="text" placeholder="Topic" />
+            <input type="text" placeholder="Subject" />
+            <input type="time" placeholder="From:" />
+            <button>Create Meeting</button>
+        </form>
+    </div>
+
+
+
+
+    <!------------------------------------Side bar------------------------------------------------------->
+    <nav class="navbar">
+    <ul class="navbar__menu">
+        <li class="navbar__item">
+        <a href="#" class="navbar__link"><i data-feather="home"></i><span>Home</span></a>
+        </li>
+        <li class="navbar__item">
+            <a href="#" class="navbar__link"><i data-feather="plus"></i><span>New Meeting</span></a>        
+        </li>
+        <li class="navbar__item">
+        <a href="#" class="navbar__link"><i data-feather="message-square"></i><span>Messages</span></a>        
+        </li>
+        <li class="navbar__item">
+        <a href="#" class="navbar__link"><i data-feather="users"></i><span>Customers</span></a>        
+        </li>
+        <li class="navbar__item">
+        <a href="#" class="navbar__link"><i data-feather="folder"></i><span>Projects</span></a>        
+        </li>
+        <li class="navbar__item">
+        <a href="#" class="navbar__link"><i data-feather="help-circle"></i><span>Help</span></a>        
+        </li>
+        <li class="navbar__item">
+        <a href="#" class="navbar__link"><i data-feather="settings"></i><span>Settings</span></a>        
+        </li>
+    </ul>
+    </nav>
+    <!-- partial -->
+    <script src='https://unpkg.com/feather-icons'></script><script  src="./js/dashboardjs.js"></script>
+
+    </body>
+</html>
