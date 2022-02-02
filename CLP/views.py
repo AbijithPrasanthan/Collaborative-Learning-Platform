@@ -21,11 +21,11 @@ def index(request):
     d = {
         'insert_me': 'This is the view.py file'
     }
-    return render(request, 'CLP/index.html', context=d)
+    return render(request, 'CLP/dashboard.html', context=d)
 
 
 def login_(request):
-    return render(request, 'CLP/home.html')
+    return render(request, 'CLP/dashboard.html')
 
 
 @login_required
@@ -98,3 +98,7 @@ def password_reset_request(request):
                     return redirect("/password_reset/done/")
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="CLP/password/password_reset.html", context={"password_reset_form": password_reset_form, 'email_sent': email_sent})
+
+
+def newMeeting(request):
+    return render(request, 'CLP/newMeeting.html')
