@@ -1,12 +1,12 @@
 {% extends "CLP/base.html" %} {% block content %}
 <div class="container" id="container">
 
-    <form action="#">
+    <form action="#" class="newMeeting">
         <h1>New Meeting</h1>
-        <input type="text" placeholder="Topic" />
-        <input type="text" placeholder="Subject" />
-        <input type="time" placeholder="From:" />
-        <button>Create Meeting</button>
+        <input type="text" placeholder="Topic" class="newMeetingInp" />
+        <input type="text" placeholder="Subject" class="newMeetingInp" />
+        <input type="time" placeholder="From:" class="newMeetingInp" />
+        <button class="newMeetingbtn">Create Meeting</button>
     </form>
 </div>
 {% endblock %}

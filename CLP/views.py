@@ -54,6 +54,8 @@ def register(request):
         registered = False
         profile_form = UserProfileInfoForm(data=request.POST)
         user_form = UserForm(data=request.POST)
+        password = request.POST.get('password')
+        password1 = request.POST.get('password1')
 
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
@@ -66,6 +68,8 @@ def register(request):
             registered = True
         else:
             print(user_form.errors)
+            print(profile_form.errors)
+            print('error occured while registeration')
     return render(request, 'CLP/login.html', {'user_form': user_form, 'profile_form': profile_form, 'auth_user': auth_user})
 
 

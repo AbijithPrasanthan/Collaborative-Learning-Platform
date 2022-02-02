@@ -67,16 +67,19 @@ button.ghost {
     background-color: transparent;
     border-color: #FFFFFF;
 }
-
-form {
-    background-color: #FFFFFF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 0 50px;
-    height: 100%;
-    text-align: center;
+#register_form{
+  background-color: #FFFFFF;
+  padding: 0 50px;
+  height: 90%;
+  margin: 20px 10px;
+  text-align: center;
+}
+#login_form{
+  background-color: #FFFFFF;
+  padding: 0 50px;
+  height: 90%;
+  margin: 40% 10px;
+  text-align: center;
 }
 
 input {
@@ -93,9 +96,8 @@ input {
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     position: relative;
     overflow: hidden;
-    width: 768px;
-    max-width: 100%;
-    min-height: 480px;
+    width: 50%;
+    height: 80%
 }
 
 .form-container {
