@@ -44,8 +44,8 @@ a {
 
 button {
     border-radius: 20px;
-    border: 1px solid #FF4B2B;
-    background-color: #FF4B2B;
+    border: 1px solid #514A9D;
+    background-color: #514A9D;
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;
@@ -67,19 +67,21 @@ button.ghost {
     background-color: transparent;
     border-color: #FFFFFF;
 }
-#register_form{
-  background-color: #FFFFFF;
-  padding: 0 50px;
-  height: 90%;
-  margin: 20px 10px;
-  text-align: center;
+
+#register_form {
+    background-color: #FFFFFF;
+    padding: 0 50px;
+    height: 90%;
+    margin: 20px 10px;
+    text-align: center;
 }
-#login_form{
-  background-color: #FFFFFF;
-  padding: 0 50px;
-  height: 90%;
-  margin: 40% 10px;
-  text-align: center;
+
+#login_form {
+    background-color: #FFFFFF;
+    padding: 0 50px;
+    height: 90%;
+    margin: 40% 10px;
+    text-align: center;
 }
 
 input {
@@ -160,11 +162,11 @@ input {
 }
 
 .overlay {
-    background: #c94b4b;
+    background: #24C6DC;
     /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #4b134f, #c94b4b);
+    background: -webkit-linear-gradient(to top, #514A9D, #24C6DC);
     /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #4b134f, #c94b4b);
+    background: linear-gradient(to top, #514A9D, #24C6DC);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background-repeat: no-repeat;
     background-size: cover;

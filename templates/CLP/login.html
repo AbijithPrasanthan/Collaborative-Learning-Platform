@@ -2,8 +2,7 @@
 <html lang="en">
 
 <head>
-    {% load static %}
-    {%load crispy_forms_tags %}
+    {% load static %} {%load crispy_forms_tags %}
     <meta charset="UTF-8">
     <title>CLP | Login</title>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
@@ -18,8 +17,7 @@
             <form method="post" id="register_form">
                 <h1>Create Account</h1>
                 <p></p>
-                {% csrf_token %}
-                {{ user_form|crispy }} {{ profile_form|crispy }}
+                {% csrf_token %} {{ user_form|crispy }} {{ profile_form|crispy }}
                 <button type="submit" name="signup">Sign Up</button>
             </form>
         </div>
