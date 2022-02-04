@@ -100,7 +100,7 @@ body {
 
 .no-data-error {
     text-align: center;
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.3);
     margin: auto;
     margin-top: 250px;
 }
