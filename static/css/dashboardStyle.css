@@ -4,6 +4,11 @@ body {
     font-family: "Open Sans", sans-serif;
 }
 
+.Title{
+
+    text-align: center;
+    margin-left: 8%;
+}
 
 /*-------------------------Cards------------------------------------------------*/
 
