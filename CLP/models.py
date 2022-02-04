@@ -24,3 +24,12 @@ class UserProfileInfo(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class MeetingInfo(models.Model):
+    topic = models.CharField(max_length=256, blank=True, unique=True)
+    sub = models.CharField(max_length=256, blank=True)
+    time = models.CharField(max_length=6, blank=True)
+
+    def __str__(self):
+        return self.topic

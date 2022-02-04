@@ -15,13 +15,14 @@ from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 # Create your views here.
+from .models import MeetingInfo
 
 
 def index(request):
     d = {
         'insert_me': 'This is the view.py file'
     }
-    return render(request, 'CLP/dashboard.html', context=d)
+    return render(request, 'CLP/dashboard.html', context={'page_title': 'CLP | Dashboard'})
 
 
 def login_(request):
@@ -105,4 +106,13 @@ def password_reset_request(request):
 
 
 def newMeeting(request):
-    return render(request, 'CLP/newMeeting.html')
+    if request.method == 'POST':
+        topic = request.POST.get('Topic')
+        subject = request.POST.get('Subject')
+        time = request.POST.get('Time')
+
+        meeting = MeetingInfo(topic=topic, sub=subject, time=time)
+        meeting.save()
+        return redirect('index')
+
+    return render(request, 'CLP/newMeeting.html', context={'page_title': 'CLP | New Meeting'})

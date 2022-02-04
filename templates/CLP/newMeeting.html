@@ -1,11 +1,13 @@
 {% extends "CLP/base.html" %} {% block content %}
+
 <div class="container" id="container">
 
-    <form action="#" class="newMeeting">
+    <form class="newMeeting" method="post">
+        {% csrf_token %}
         <h1>New Meeting</h1>
-        <input type="text" placeholder="Topic" class="newMeetingInp" />
-        <input type="text" placeholder="Subject" class="newMeetingInp" />
-        <input type="time" placeholder="From:" class="newMeetingInp" />
+        <input type="text" placeholder="Topic" class="newMeetingInp" name="Topic" required/>
+        <input type="text" placeholder="Subject" class="newMeetingInp" name="Subject" required/>
+        <input type="time" placeholder="From:" class="newMeetingInp" name="Time" required/>
         <button class="newMeetingbtn">Create Meeting</button>
     </form>
 </div>
