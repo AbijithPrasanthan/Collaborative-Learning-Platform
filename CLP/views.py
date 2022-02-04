@@ -19,10 +19,11 @@ from .models import MeetingInfo
 
 
 def index(request):
-    d = {
-        'insert_me': 'This is the view.py file'
-    }
-    return render(request, 'CLP/dashboard.html', context={'page_title': 'CLP | Dashboard'})
+    data = list(MeetingInfo.objects.values())
+    content = False
+    if len(data) != 0:
+        content = True
+    return render(request, 'CLP/dashboard.html', context={'page_title': 'CLP | Dashboard', 'data': data, 'content': content})
 
 
 def login_(request):
@@ -110,7 +111,7 @@ def newMeeting(request):
         topic = request.POST.get('Topic')
         subject = request.POST.get('Subject')
         time = request.POST.get('Time')
-
+        print(time)
         meeting = MeetingInfo(topic=topic, sub=subject, time=time)
         meeting.save()
         return redirect('index')
