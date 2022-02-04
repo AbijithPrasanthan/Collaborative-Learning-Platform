@@ -1,27 +1,15 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-    <title>Index</title>
-    {% load static %}
-    <link rel=stylesheet href="{% static 'css/style.css' %}" type="text/css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet">
-</head>
+<html lang="en">
+<title></title>
+<script src="https://unpkg.com/feather-icons"></script>
 
 <body>
-    <h1>This is the index page</h1>
-    <p><b>
-        Run the server using the command python manage.py runserver <br>All the html files are put under the folder templates. In here a folder is created for the app CLP. This is where all the html files for this particular app resided<br> All the static
-        files(css, js and images) are put under the folder static. New URL mappings should be added to the urls.py file<br> Check the views.py file for checking how to render an HTML file to a proper webpage. <br>If u check the source for this index.html
-        file u will see a peculiar piece of code. This is how we put stuff from views.py into the html file.
-    </b></p>
-    {{ insert_me }}
 
-    <a href="{% url 'login' %}">Login</a><br>
-    <a href="/admin" target="_blank">Admin</a>
+    <!-- example icon -->
+    <i data-feather="circle "></i>
 
+    <script>
+        feather.replace()
+    </script>
 </body>
-
-</html>
+</html

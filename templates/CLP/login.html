@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    {% load static %}
+    {% load static %} {%load crispy_forms_tags %}
     <meta charset="UTF-8">
     <title>CLP | Login</title>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
@@ -14,15 +14,16 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form method="post">
+            <form method="post" id="register_form">
                 <h1>Create Account</h1>
-                {% csrf_token %} {{ user_form.as_table }} {{ profile_form.as_table }}
+                <p></p>
+                {% csrf_token %} {{ user_form|crispy }} {{ profile_form|crispy }}
                 <button type="submit" name="signup">Sign Up</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
 
-            <form action="{% url 'login' %}" method="post">
+            <form action="{% url 'login' %}" method="post" id="login_form">
                 {% csrf_token %}
                 <h1>Sign in</h1>
                 <input type="username" placeholder="Username" name="Username">

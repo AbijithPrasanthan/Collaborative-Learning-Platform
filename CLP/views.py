@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from CLP.forms import UserForm, UserProfileInfoForm
+from CLP.forms import UserForm, UserProfileInfoForm, ResetPassword
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
@@ -14,18 +14,21 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
+from Collaborative_Learning_Platform.settings import EMAIL_HOST_USER
 # Create your views here.
+from .models import MeetingInfo
 
 
 def index(request):
-    d = {
-        'insert_me': 'This is the view.py file'
-    }
-    return render(request, 'CLP/index.html', context=d)
+    data = list(MeetingInfo.objects.values())
+    content = False
+    if len(data) != 0:
+        content = True
+    return render(request, 'CLP/dashboard.html', context={'page_title': 'CLP | Dashboard', 'data': data, 'content': content})
 
 
 def login_(request):
-    return render(request, 'CLP/home.html')
+    return render(request, 'CLP/dashboard.html')
 
 
 @login_required
@@ -54,6 +57,8 @@ def register(request):
         registered = False
         profile_form = UserProfileInfoForm(data=request.POST)
         user_form = UserForm(data=request.POST)
+        password = request.POST.get('password')
+        password1 = request.POST.get('password1')
 
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
@@ -66,35 +71,48 @@ def register(request):
             registered = True
         else:
             print(user_form.errors)
+            print(profile_form.errors)
+            print('error occured while registeration')
     return render(request, 'CLP/login.html', {'user_form': user_form, 'profile_form': profile_form, 'auth_user': auth_user})
 
 
 def password_reset_request(request):
     email_sent = False
     if request.method == "POST":
-        password_reset_form = PasswordResetForm(request.POST)
+        password_reset_form = ResetPassword(request.POST)
         if password_reset_form.is_valid():
-            data = password_reset_form.cleaned_data['email']
-            associated_users = User.objects.filter(Q(email=data))
-            if associated_users.exists():
-                for user in associated_users:
-                    subject = "Password Reset Requested"
-                    email_template_name = "CLP/password/password_reset_email.txt"
-                    c = {
-                        "email": user.email,
+            data = password_reset_form.cleaned_data['Email']
+            user = User.objects.filter(email=data)
+            if user.exists():
+                subject = "Password Reset Requested"
+                email_template_name = "CLP/password/password_reset_email.txt"
+                c = {
+                        "email": user[0].email,
                         'domain': '127.0.0.1:8000',
                         'site_name': 'Collaborative Learning Platform',
-                        "uid": urlsafe_base64_encode(force_bytes(user.pk)),
-                        "user": user,
-                        'token': default_token_generator.make_token(user),
+                        "uid": urlsafe_base64_encode(force_bytes(user[0].pk)),
+                        "user": user[0],
+                        'token': default_token_generator.make_token(user[0]),
                         'protocol': 'http',
-                    }
-                    email = render_to_string(email_template_name, c)
-                    try:
-                        send_mail(subject, email, 'admin@example.com',
-                                  [user.email], fail_silently=False)
-                    except BadHeaderError:
-                        return HttpResponse('Invalid header found.')
-                    return redirect("/password_reset/done/")
-    password_reset_form = PasswordResetForm()
+                }
+                email = render_to_string(email_template_name, c)
+                try:
+                    send_mail(subject, email, EMAIL_HOST_USER,[user[0].email], fail_silently=False)
+                except BadHeaderError:
+                    return HttpResponse('Invalid header found.')
+                return redirect("/password_reset/done/")
+    password_reset_form = ResetPassword()
     return render(request=request, template_name="CLP/password/password_reset.html", context={"password_reset_form": password_reset_form, 'email_sent': email_sent})
+
+
+def newMeeting(request):
+    if request.method == 'POST':
+        topic = request.POST.get('Topic')
+        subject = request.POST.get('Subject')
+        time = request.POST.get('Time')
+        print(time)
+        meeting = MeetingInfo(topic=topic, sub=subject, time=time)
+        meeting.save()
+        return redirect('index')
+
+    return render(request, 'CLP/newMeeting.html', context={'page_title': 'CLP | New Meeting'})

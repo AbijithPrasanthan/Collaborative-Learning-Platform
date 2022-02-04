@@ -1,0 +1,20 @@
+{% extends "CLP/base.html" %} {% block content %}
+<div class="cards-list">
+    {% if content %} {% for val in data %}
+    <div class="card">
+        <div class="card-header">
+            <h1>{{ val.topic }}</h1>
+        </div>
+        <div class="card-body">
+            <p>
+              {{val.sub}}
+            </p>
+            <a href="#" class="btn">{{val.time}}</a>
+        </div>
+    </div>
+  {% endfor %}
+  {% else %}
+    <h1>No Data to show</h1>
+  {% endif %}
+</div>
+{% endblock %}
