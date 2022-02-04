@@ -40,9 +40,11 @@ class UserForm(forms.ModelForm):
 # =========================== FORGOT PASSWORD ===========================
 
 
+
 class ResetPassword(forms.Form):
-    email = forms.CharField(widget=forms.EmailInput(
-        attrs={'placeholder': 'Email'}))
+    Email = forms.EmailField()
+    def __str__(self):
+        return self.Email
 
 
 '''

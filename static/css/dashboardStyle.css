@@ -11,7 +11,100 @@ body {
 }
 
 /*-------------------------Cards------------------------------------------------*/
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
+body {
+  background: #fefefe;
+  font-family: sans-serif;
+}
+
+.container {
+  width: 90%;
+  margin: 50px auto;
+}
+.heading {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 50px;
+}
+
+
+
+.card {
+  margin: 20px;
+  width: 20%;
+  background: #fff;
+  box-shadow: 5px 5px 30px 7px rgba(0, 0, 0, 0.25), -5px -5px 30px 7px rgba(0, 0, 0, 0.22);
+  border: 1px solid #ccc;
+  cursor: pointer;
+  margin-bottom: 50px;
+  transition: 0.3s;
+  border-radius: 40px;
+}
+
+.card-header {
+  text-align: center;
+  padding: 50px 10px;
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  border-radius: 40px 40px 0px 0px;
+  color: #fff;
+}
+
+.card-body {
+  padding: 30px 20px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.card-body .btn {
+  display: block;
+  color: #fff;
+  text-align: center;
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  margin-top: 30px;
+  text-decoration: none;
+  padding: 10px 5px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.25);
+}
+
+@media screen and (max-width: 1000px) {
+  .card {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .container {
+    width: 100%;
+  }
+
+  .heading {
+    padding: 20px;
+    font-size: 20px;
+  }
+
+  .card {
+    width: 80%;
+  }
+}
+
+.cards-list {
+    z-index: 0;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    left: 10%;
+}
+/*
 .cards-list {
     z-index: 0;
     width: 70%;
@@ -71,9 +164,9 @@ body {
 @media all and (max-width: 500px) {
     .card-list {
         /* On small screens, we are no longer using row direction but column */
-        flex-direction: column;
+      /*  flex-direction: column;
     }
-}
+} */
 
 
 /* -------------------- NEW MEETING -------------------- */
