@@ -87,17 +87,18 @@ def password_reset_request(request):
                 subject = "Password Reset Requested"
                 email_template_name = "CLP/password/password_reset_email.txt"
                 c = {
-                        "email": user[0].email,
-                        'domain': '127.0.0.1:8000',
-                        'site_name': 'Collaborative Learning Platform',
-                        "uid": urlsafe_base64_encode(force_bytes(user[0].pk)),
-                        "user": user[0],
-                        'token': default_token_generator.make_token(user[0]),
-                        'protocol': 'http',
+                    "email": user[0].email,
+                    'domain': '127.0.0.1:8000',
+                    'site_name': 'Collaborative Learning Platform',
+                    "uid": urlsafe_base64_encode(force_bytes(user[0].pk)),
+                    "user": user[0],
+                    'token': default_token_generator.make_token(user[0]),
+                    'protocol': 'http',
                 }
                 email = render_to_string(email_template_name, c)
                 try:
-                    send_mail(subject, email, EMAIL_HOST_USER,[user[0].email], fail_silently=False)
+                    send_mail(subject, email, EMAIL_HOST_USER, [
+                              user[0].email], fail_silently=False)
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
                 return redirect("/password_reset/done/")

@@ -1,7 +1,8 @@
-{% extends "CLP/base.html" %} {% block content %}
+{% extends "CLP/base.html" %} {% block content %} {% load static %}
 
 <div class="container" id="container">
 
+    <img src="{% static 'gif/calendar.gif' %}" width="100px" height="100px">
     <form class="newMeeting" method="post">
         {% csrf_token %}
         <h1>New Meeting</h1>
