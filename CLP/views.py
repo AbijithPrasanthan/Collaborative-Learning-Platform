@@ -117,3 +117,7 @@ def newMeeting(request):
         return redirect('index')
 
     return render(request, 'CLP/newMeeting.html', context={'page_title': 'CLP | New Meeting'})
+
+
+def meeting(request):
+    return render(request, 'CLP/meeting.html', context={'page_title': 'CLP | Meeting'})
