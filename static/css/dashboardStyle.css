@@ -192,16 +192,22 @@ input[class="newMeetingInp"] {
     min-height:300px;
 }
 
-.modal-header{
+#modal-title{
     margin-top: 5%;
-    margin-left: 90%;
+    text-align: center;
+    font-size: 40px;
+}
+
+#close{
+    padding: 5px;
+    margin-left: 95%;
     font-size: 20px;
 }
 
-.modal-body{
-
-    margin-top: 20%;
-    margin-left: 40%;
+#modal-sub,#modal-time{
+    margin-top: 10%;
+    margin-left: 10%;
+    font-size: 20px;
 }
 
 .modal-foot{

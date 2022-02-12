@@ -2,14 +2,14 @@
 <div class="cards-list">
     {% if content %} {% for val in data %}
     <div class="card" id="card">
-        <div class="card-header">
+        <div class="card-header" id="card-header">
             <h1>{{ val.topic }}</h1>
         </div>
-        <div class="card-body">
+        <div class="card-body" id="card-body">
             <p>
                 {{val.sub}}
             </p>
-            <a class="btn">{{val.time}}</a>
+            <a class="btn" id="btn-time">{{val.time}}</a>
         </div>
     </div>
     {% endfor %} {% else %}
@@ -17,13 +17,18 @@
     {% endif %}
 </div>
 
+<!-- Pop-up window on clicking the meeting cards -->
 <div class="modal" id="modal">
     <div class="inner_container" id="container">
         <div class="modal-header">
             <a id="close">✖</a>
+            <h2 id="modal-title">Modal Title</h2>
         </div>
 
-        <div class="modal-body">-->Content---</div>
+        <div class="modal-body">
+            <h3 id="modal-sub">Subject: </h3>
+            <h3 id="modal-time">Time: </p>
+        </div>
 
         <div class="modal-foot">
             <button id="joinbtn">Join Meeting</button>
