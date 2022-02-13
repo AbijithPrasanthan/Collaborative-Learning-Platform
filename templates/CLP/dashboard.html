@@ -1,19 +1,19 @@
 {% extends "CLP/base.html" %} {% block content %} {% load static %}
 <div class="cards-list">
     {% if content %} {% for val in data %}
-    <div class="card" id="card">
-        <div class="card-header" id="card-header">
+    <div class="card" id="{{ val.slug }}">
+        <div class="card-header " id="card-header ">
             <h1>{{ val.topic }}</h1>
         </div>
-        <div class="card-body" id="card-body">
+        <div class="card-body " id="card-body ">
             <p>
                 {{val.sub}}
             </p>
-            <a class="btn" id="btn-time">{{val.time}}</a>
+            <a class="btn " id="btn-time ">{{val.time}}</a>
         </div>
     </div>
     {% endfor %} {% else %}
-    <h1 class="no-data-error">Nothing to show right now 😒 <br> No worries, you can create one now from the <i>New meeting dashboard</i>😎😎</h1>
+    <h1 class="no-data-error ">Nothing to show right now 😒 <br> No worries, you can create one now from the <i>New meeting dashboard</i>😎😎</h1>
     {% endif %}
 </div>
 
@@ -21,7 +21,7 @@
 <div class="modal" id="modal">
     <div class="inner_container" id="container">
         <div class="modal-header">
-            <a id="close">✖</a>
+            <button id="close">✖</button>
             <h2 id="modal-title">Modal Title</h2>
         </div>
 
@@ -37,5 +37,5 @@
 
 </div>
 
-<!-- <div class="active" id="overlay"></div> -->
+<!-- <div class="active " id="overlay "></div> -->
 {% endblock %}
