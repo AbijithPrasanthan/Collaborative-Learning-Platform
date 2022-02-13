@@ -15,8 +15,11 @@ from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from Collaborative_Learning_Platform.settings import EMAIL_HOST_USER
+from django.template.defaultfilters import slugify
 # Create your views here.
 from .models import MeetingInfo
+import random
+import string
 
 
 def index(request):
@@ -111,8 +114,13 @@ def newMeeting(request):
         topic = request.POST.get('Topic')
         subject = request.POST.get('Subject')
         time = request.POST.get('Time')
-        print(time)
-        meeting = MeetingInfo(topic=topic, sub=subject, time=time)
+        m = min((16-len(topic), 5))
+        if m == 0:
+            m = 5
+        randVal = ''.join(random.choice(
+            string.ascii_lowercase + string.digits) for _ in range(m))
+        slug = slugify(topic.lower()[:8] + " " + str(random.randint))
+        meeting = MeetingInfo(topic=topic, sub=subject, time=time, slug=slug)
         meeting.save()
         return redirect('index')
 
@@ -120,4 +128,11 @@ def newMeeting(request):
 
 
 def meeting(request):
+    randomstr = ''.join(random.choices(
+        string.ascii_letters+string.digits, k=8))
     return render(request, 'CLP/meeting.html', context={'page_title': 'CLP | Meeting'})
+
+
+def showDetails(request, id):
+    print("THE ID IS: ", id)
+    return render(request, 'CLP/dashboardPopup.html')
