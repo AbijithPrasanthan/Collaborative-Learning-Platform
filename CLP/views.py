@@ -22,11 +22,22 @@ import random
 import string
 
 
+def is_ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
+
 def index(request):
     data = list(MeetingInfo.objects.values())
+    popup = False
     content = False
     if len(data) != 0:
         content = True
+    if request.method == 'POST' and is_ajax(request):
+        popup = True
+        id_ele = request.POST['id']
+        data_id = MeetingInfo.objects.get(slug=id_ele)
+        print(data_id)
+
     return render(request, 'CLP/dashboard.html', context={'page_title': 'CLP | Dashboard', 'data': data, 'content': content})
 
 

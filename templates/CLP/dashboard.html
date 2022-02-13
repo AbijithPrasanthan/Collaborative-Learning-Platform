@@ -1,6 +1,6 @@
 {% extends "CLP/base.html" %} {% block content %} {% load static %}
 <div class="cards-list">
-    {% if content %} {% for val in data %}
+    {% if content %} {% for val in data %} {% csrf_token %}
     <div class="card" id="{{ val.slug }}">
         <div class="card-header " id="card-header ">
             <h1>{{ val.topic }}</h1>
@@ -37,5 +37,26 @@
 
 </div>
 
-<!-- <div class="active " id="overlay "></div> -->
+{% endblock %} {% block js %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(".card").click(function() {
+        var id = $(this).attr("id");
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'index' %}",
+            data: {
+                'id': id,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function() {
+                console.log('Success');
+            },
+            error: function() {
+                console.log('Failed');
+            }
+        })
+    })
+</script>
+
 {% endblock %}
