@@ -119,7 +119,7 @@ def newMeeting(request):
             m = 5
         randVal = ''.join(random.choice(
             string.ascii_lowercase + string.digits) for _ in range(m))
-        slug = slugify(topic.lower()[:8] + " " + str(random.randint))
+        slug = slugify(topic.lower()[:8] + " " + str(randVal))
         meeting = MeetingInfo(topic=topic, sub=subject, time=time, slug=slug)
         meeting.save()
         return redirect('index')
