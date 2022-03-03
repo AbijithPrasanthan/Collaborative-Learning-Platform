@@ -28,17 +28,17 @@ def is_ajax(request):
 
 def index(request):
     data = list(MeetingInfo.objects.values())
-    popup = False
+    popup = True
     content = False
+    data_id = []
     if len(data) != 0:
         content = True
     if request.method == 'POST' and is_ajax(request):
         popup = True
         id_ele = request.POST['id']
-        data_id = MeetingInfo.objects.get(slug=id_ele)
-        print(data_id)
+        data_id = list(MeetingInfo.objects.get(slug=id_ele))
 
-    return render(request, 'CLP/dashboard.html', context={'page_title': 'CLP | Dashboard', 'data': data, 'content': content})
+    return render(request, 'CLP/dashboard.html', context={'page_title': 'CLP | Dashboard', 'data': data, 'content': content, 'popup': popup})
 
 
 def login_(request):

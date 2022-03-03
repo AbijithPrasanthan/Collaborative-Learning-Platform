@@ -9,7 +9,6 @@ var modal =
 console.log(
     modal
 );
-// Get the card that opens the modal and store it as an array cards
 cards =
     document.querySelectorAll(
         ".card"
@@ -19,34 +18,6 @@ cards =
 var closebtn =
     document.getElementById(
         "close"
-    );
-
-//Get content of Modal class
-var modalTitle =
-    document.getElementById(
-        "modal-title"
-    );
-var modalSub =
-    document.getElementById(
-        "modal-sub"
-    );
-var modalTime =
-    document.getElementById(
-        "modal-time"
-    );
-
-//Get content of card class
-var cardHeader =
-    document.getElementById(
-        "card-header"
-    );
-var cardBody =
-    document.getElementById(
-        "card-body"
-    );
-var cardTime =
-    document.getElementById(
-        "btn-time"
     );
 
 var overlay =
@@ -65,12 +36,6 @@ for (
         function() {
             modal.style.display =
                 "block";
-            // overlay.classList.add('active')
-            // modalContent[0].innerText=cardContent[0].innerText
-            // console.log(modalSub.innerText,cardBody.innerText,modalTime.innerText,cardTime.innerText)
-            // modalTitle.innerText=cardHeader.innerText;
-            // modalSub.innerText= "Subject: " +cardBody.innerText;
-            // modalTime.innerText="Time: "+cardTime.innerText;
         };
 }
 
