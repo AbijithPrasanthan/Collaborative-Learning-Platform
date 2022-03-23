@@ -1,5 +1,6 @@
 from django import forms
 from CLP.models import UserProfileInfo
+from . models import *
 from django.contrib.auth.models import User
 from .domain_check import email_verification
 
@@ -50,6 +51,20 @@ class ResetPassword(forms.Form):
     Email = forms.EmailField()
     def __str__(self):
         return self.Email
+
+class NotesForm(forms.ModelForm):
+    class Meta:
+        model = Notes
+        fields = ('title','description')
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+class HomeworkForm(forms.ModelForm):
+    class Meta:
+        model = Homework
+        widgets = {'due':DateInput()}
+        fields = ('subject','title','description','due','is_finished')
 
 
 '''

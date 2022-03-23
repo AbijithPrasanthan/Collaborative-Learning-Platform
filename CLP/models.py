@@ -51,3 +51,22 @@ class Message(models.Model):
     date = models.DateTimeField(default=datetime.now,blank=True)
     user = models.CharField(max_length=1000000)
     room = models.CharField(max_length=1000000)
+
+class Notes(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.title
+
+class Homework(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    subject = models.CharField(max_length=50)
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    due = models.DateTimeField()
+    is_finished = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.subject
