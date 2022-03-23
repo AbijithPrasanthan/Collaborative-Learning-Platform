@@ -1,6 +1,7 @@
 from django import forms
 from CLP.models import UserProfileInfo
 from django.contrib.auth.models import User
+from .domain_check import email_verification
 
 # =========================== REGISTRATION ===========================
 
@@ -33,8 +34,12 @@ class UserForm(forms.ModelForm):
         super().clean()
         password1 = self.cleaned_data.get('password')
         password2 = self.cleaned_data.get('password1')
+        email = self.cleaned_data.get('email')
         if password1 != password2:
             self._errors['password1'] = self.error_class(['Password Does Not Matched'])
+        if(email_verification(email) == 0):
+            print("FAILED!! in finding domain")
+            self._errors['email'] = self.error_class(['The email domain is not a registered college domain'])
 
 
 # =========================== FORGOT PASSWORD ===========================

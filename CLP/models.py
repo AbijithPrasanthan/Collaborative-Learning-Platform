@@ -4,9 +4,10 @@ make email unique if not already
 
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
 
 '''
-The default User model which is imported above comes with 
+The default User model which is imported above comes with
     Username
     Email
     Password
@@ -40,3 +41,13 @@ class MeetingInfo(models.Model):
             'slug': self.slug,
         }
         return str(res)
+
+class Room(models.Model):
+    name = models.CharField(max_length=1000, unique=True)
+    username = models.CharField(max_length=1000000, default="Unknown")
+
+class Message(models.Model):
+    value = models.CharField(max_length=1000000)
+    date = models.DateTimeField(default=datetime.now,blank=True)
+    user = models.CharField(max_length=1000000)
+    room = models.CharField(max_length=1000000)

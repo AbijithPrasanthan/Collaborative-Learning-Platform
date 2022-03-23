@@ -1,5 +1,5 @@
 feather.replace();
-//https://twitter.com/One_div
+/*//https://twitter.com/One_div
 
 //Get the popup window(modal)
 var modal =
@@ -44,4 +44,4 @@ closebtn.onclick =
     function() {
         modal.style.display =
             "none";
-    };
+    }; */

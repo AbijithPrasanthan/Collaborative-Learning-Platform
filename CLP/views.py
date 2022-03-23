@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from CLP.forms import UserForm, UserProfileInfoForm, ResetPassword
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -17,13 +17,55 @@ from django.utils.encoding import force_bytes
 from Collaborative_Learning_Platform.settings import EMAIL_HOST_USER
 from django.template.defaultfilters import slugify
 # Create your views here.
-from .models import MeetingInfo
+from .models import MeetingInfo, Room, Message
 import random
 import string
 
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
+
+def chat(request):
+    content = False
+    data = list(Room.objects.values())
+    if len(data) != 0:
+        content = True
+    return render(request, 'CLP/chat.html', context={'data': data, 'content': content})
+
+
+def room(request, room):
+    username = request.GET.get('username')
+    room_details = Room.objects.get(name=room)
+    return render(request, 'CLP/chat_room.html', {'username': username, 'room': room, 'room_details': room_details})
+
+
+def checkview(request):
+    room = request.POST['room_name']
+    username = request.POST['username']
+    if Room.objects.filter(name=room).exists():
+        return redirect(room + '/?username='+username)
+    else:
+        new_room = Room.objects.create(name=room, username=username)
+        new_room.save()
+        return redirect('/CLP/chat')
+
+
+def send(request):
+    message = request.POST['message']
+    username = request.POST['username']
+    room_id = request.POST['room_id']
+    print(message, username, room_id)
+    new_message = Message.objects.create(
+        value=message, user=username, room=room_id)
+    new_message.save()
+    return HttpResponse('Message sent successfully')
+
+
+def getMessages(request, room):
+    room_details = Room.objects.get(name=room)
+    messages = Message.objects.filter(room=room_details.id)
+    return JsonResponse({"messages": list(messages.values())})
 
 
 def index(request):
@@ -36,8 +78,7 @@ def index(request):
     if request.method == 'POST' and is_ajax(request):
         popup = True
         id_ele = request.POST['id']
-        data_id = list(MeetingInfo.objects.get(slug=id_ele))
-
+        data_id = list(MeetingInfo.objects.filter(slug=id_ele))
     return render(request, 'CLP/dashboard.html', context={'page_title': 'CLP | Dashboard', 'data': data, 'content': content, 'popup': popup})
 
 
@@ -138,7 +179,8 @@ def newMeeting(request):
     return render(request, 'CLP/newMeeting.html', context={'page_title': 'CLP | New Meeting'})
 
 
-def meeting(request):
+def meeting(request, id):
+    print(id)
     randomstr = ''.join(random.choices(
         string.ascii_letters+string.digits, k=8))
     return render(request, 'CLP/meeting.html', context={'page_title': 'CLP | Meeting'})

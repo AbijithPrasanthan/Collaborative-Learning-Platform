@@ -1,26 +1,8 @@
 {% extends 'CLP/base.html' %} {% load static %} {% block content %}
-
-
-<!--body content wrap start-->
 <div id="meet">
-    <iframe></iframe>
-    <button onclick="initialise()" type="submit">Click</button>
-    <button onclick="getpart()" type="submit">get</button>
 </div>
 <!--body content wrap end-->
-{% endblock %} {% block js %} {% verbatim %}
-<script>
-    initialise = () => {
-        const domain = 'meet.jit.si';
-        const options = {
-            roomName: 'JitsiMeetAPIExample',
-            width: 700,
-            height: 700,
-            parentNode: document.querySelector('#meet')
-        };
-        const api = new JitsiMeetExternalAPI(domain, options);
-    }
-</script>
-{% endverbatim %}
+{% endblock %} {% block js %}
+<script src="{% static 'js/meeting.js' %}"></script>
 <script src='https://meet.jit.si/external_api.js'></script>
 {% endblock %}

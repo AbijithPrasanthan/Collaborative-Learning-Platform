@@ -1,7 +1,7 @@
 {% extends "CLP/base.html" %} {% block content %} {% load static %}
 <div class="cards-list">
     {% if content %} {% for val in data %} {% csrf_token %}
-    <div class="card" id="{{ val.slug }}">
+    <div class="card" id="{{ val.slug }}" onclick="location.href='/CLP/meeting/{{ val.slug }}';">
         <div class="card-header " id="card-header ">
             <h1>{{ val.topic }}</h1>
         </div>
@@ -27,7 +27,7 @@
 
         <div class="modal-body">
             <h3 id="modal-sub">Subject: </h3>
-            <h3 id="modal-time">Time: </p>
+            <h3 id="modal-time">Time: </h3>
         </div>
 
         <div class="modal-foot">
