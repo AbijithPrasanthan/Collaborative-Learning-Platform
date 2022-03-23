@@ -1,11 +1,7 @@
 from django.shortcuts import render, redirect
-<<<<<<< HEAD
 from django.http import HttpResponse, JsonResponse
-from CLP.forms import UserForm, UserProfileInfoForm, ResetPassword
-=======
 from django.http import HttpResponse,JsonResponse
 from CLP.forms import *
->>>>>>> 7cc97f8f8ce860ba0cc6c7bba1f0e5dc3344c820
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
