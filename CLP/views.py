@@ -1,5 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
+<<<<<<< HEAD
+=======
+from django.http import HttpResponse,JsonResponse
+>>>>>>> f4a4baec7915edeaee6b76cd876deea3c3531cd2
 from CLP.forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout

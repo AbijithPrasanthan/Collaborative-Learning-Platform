@@ -70,6 +70,9 @@ body {
     box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.25);
 }
 
+#removeNote{
+    color: red;
+}
 @media screen and (max-width: 1000px) {
     .card {
         width: 40%;
@@ -269,7 +272,29 @@ input[class="newMeetingInp"] {
     pointer-events: all;
 }
 
+/*------------------------------------------Notes---------------------------------------------*/
 
+/* .notesContainer{
+    width: 90%;
+    margin: 50px auto;
+
+} */
+#descriptionBox{
+
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 6px 0;
+    width: 40%;
+
+}
+input {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 40%;
+}
 /*---------------------------------------------------------------------------------------------*/
 
 .navbar {
