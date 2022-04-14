@@ -372,6 +372,28 @@ input {
     margin: 8px 0;
     width: 40%;
 }
+/*------------------------------Study Mode------------------------------------------------------*/
+
+#cam_heading{
+    margin-left: 48%;
+    padding: 2%;
+    font-size: large;
+}
+
+.startBtn button{
+    margin-left: 35%;
+    float: left;
+}
+.stopBtn button{
+    margin-right: 30%;
+    float: right;
+
+}
+#cam{
+    max-width: 30%;
+    max-height: 30%;
+    margin-left: 38%;
+}
 /*---------------------------------------------------------------------------------------------*/
 
 .navbar {
