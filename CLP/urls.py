@@ -9,6 +9,8 @@ path('update_homework/<int:pk>', views.update_homework, name='update-homework'),
 path('delete_homework/<int:pk>', views.delete_homework, name='delete-homework'),
 
 urlpatterns = [
+    path('cam', views.cam, name='cam'),
+    path('mask_feed', views.mask_feed, name='mask_feed'),
     path('login/', views.register, name='login'),
     path('home/', views.index, name='home'),
     path('login/', views.user_logout, name='user_logout'),
