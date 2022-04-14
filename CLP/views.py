@@ -18,6 +18,14 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from Collaborative_Learning_Platform.settings import EMAIL_HOST_USER
 from django.template.defaultfilters import slugify
+<<<<<<< HEAD
+=======
+from pygame import mixer
+from django.http.response import StreamingHttpResponse
+from CLP.camera import Detect
+import winsound
+# Create your views here.
+>>>>>>> e8d808bdab6a92478d71807487806961014ac135
 from .models import MeetingInfo, Room, Message, Notes
 import random
 import string
@@ -25,6 +33,28 @@ import string
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
+def cam(request):
+	return render(request, 'CLP/cam.html')
+
+def gen(camera):
+    t=0
+    mixer.init()
+    mixer.music.load("CLP/Top-Touches-Wow.mp3")
+    while True:
+        frame,locs = camera.get_frame()
+        if len(locs) == 0 and t==0:
+            mixer.music.play(-1)
+            t=1
+        if len(locs) != 0 and t==1:
+            mixer.music.stop()
+            t=0
+        yield (b'--frame\r\n'
+				b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+def mask_feed(request):
+	return StreamingHttpResponse(gen(Detect()),
+					content_type='multipart/x-mixed-replace; boundary=frame')
 
 
 def chat(request):
