@@ -1,9 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-<<<<<<< HEAD
-=======
-from django.http import HttpResponse,JsonResponse
->>>>>>> f4a4baec7915edeaee6b76cd876deea3c3531cd2
+from django.http import HttpResponse, JsonResponse
 from CLP.forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -21,7 +18,6 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from Collaborative_Learning_Platform.settings import EMAIL_HOST_USER
 from django.template.defaultfilters import slugify
-# Create your views here.
 from .models import MeetingInfo, Room, Message, Notes
 import random
 import string
@@ -188,6 +184,12 @@ def meeting(request, id):
     print(id)
     randomstr = ''.join(random.choices(
         string.ascii_letters+string.digits, k=8))
+
+    if request.method == 'POST' and is_ajax(request):
+
+        info = request.POST['info']
+        roomName = request.POST['roomName']
+        print(info, type(info), roomName)
     return render(request, 'CLP/meeting.html', context={'page_title': 'CLP | Meeting'})
 
 

@@ -27,9 +27,32 @@ body.onload =
                 "#meet"
             ),
         };
-        const api =
+        api =
             new JitsiMeetExternalAPI(
                 domain,
                 options
             );
+
+        api.on(
+            "participantJoined",
+            function(a, b) {
+                var partInfo = api.getParticipantsInfo();
+                const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                $.ajax({
+                    type: 'POST',
+                    url: `/CLP/meeting/${roomName}/`,
+                    data: {
+                        'info': partInfo,
+                        'roomName': roomName,
+                        'csrfmiddlewaretoken': csrftoken
+                    },
+                    success: function() {
+                        console.log('Success');
+                    },
+                    error: function() {
+                        console.log('Failed');
+                    }
+                })
+            }
+        );
     };

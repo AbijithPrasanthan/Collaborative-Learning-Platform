@@ -2,7 +2,8 @@
 <div id="meet">
 </div>
 <!--body content wrap end-->
-{% endblock %} {% block js %}
+{% endblock %} {% block js %} {% csrf_token %}
 <script src="{% static 'js/meeting.js' %}"></script>
 <script src='https://meet.jit.si/external_api.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {% endblock %}
