@@ -4,16 +4,18 @@
 {% block content %}
 
 
-<div class="container">
+<!-- <div class="container">
     <div class="row">
       {% for note in notes %}
-        <div class="col-md-3">
+        <div class="col-sm-3">
             <a href="{% url 'notes-detail' note.id %}">
-                <div class="card">
-                    <div class="card-header">{{note.title}}</div>
-                    <div class="card-body">{{note.description|slice:"0:100"}}</div>
-                    <div id="removeNote" class="card-footer mt-auto"><a href="{% url 'delete-note' note.id %}">
-                        <i class="fa fa-trash fa-2x">remove</i></a>
+                <div class="note-card">
+                    <div class="note-card-header">
+                        <a id="card-delete" href="{% url 'delete-note' note.id %}">
+                        <i data-feather="trash-2">X</i></a>
+                    </div>
+                    <div class="note-card-body">
+                        {{note.title}}
                     </div>
                 </div>
             </a>
@@ -22,17 +24,33 @@
         <br><br>
 
     </div>
+</div> -->
+<div class="note-container">
+    <div class="cards-list">
+        {% if content %} {% for note in notes %} 
+        <div class="note-card" >
+            <div class="note-card-header">
+                <a id="card-delete" href="{% url 'delete-note' note.id %}">
+                <i data-feather="trash-2">X</i></a>
+            </div>
+            <div class="note-card-body">
+                <a href="{% url 'notes-detail' note.id %}" style="text-decoration: none;">
+                {{note.title}}</a>
+            </div>
+        </div>
+        {% endfor %}{% else %}
+        <h1 class="no-data-error ">Nothing to show right now 😒 <br> No worries, you can create one now 😎😎</h1>
+        {% endif %}
+    </div>
 </div>
+
+<br><br>
 <br><br>
 <div class="container">
     <form method="POST">
       {% csrf_token %}
-        <!-- <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Create Notes</legend>
-            
-        </fieldset> -->
-        <!-- {{form|crispy}} -->
-        <h1>Create Notes</h1>
+        
+        <h1>Create Notes</h1>   
         <h3 id="notes_form_title">Title</h3>
         <input type="text" placeholder="Title" name="title">
         <h3 id="notes_form_title">Description</h3>
@@ -41,7 +59,6 @@
         <button href="" class="btn btn-outline-info" type="submit">
             Create
         </button>
-        </div>
     </form>
 </div>
 

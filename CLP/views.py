@@ -195,6 +195,7 @@ def showDetails(request, id):
 
 
 def notes(request):
+    
     if request.method == 'POST':
         form = NotesForm(request.POST)
         if form.is_valid():
@@ -204,7 +205,11 @@ def notes(request):
     else:
         form = NotesForm()
     notes = Notes.objects.filter(user=request.user).values()
-    context = {'notes':notes, 'form':form}
+    data = list(Notes.objects.values())
+    content = False
+    if len(data) != 0:
+        content = True
+    context = {'notes':notes,'content':content, 'form':form}
     return render(request,'CLP/student/notes.html', context)
 
 def delete_note(request, pk=None):

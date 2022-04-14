@@ -70,9 +70,7 @@ body {
     box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.25);
 }
 
-#removeNote{
-    color: red;
-}
+
 @media screen and (max-width: 1000px) {
     .card {
         width: 40%;
@@ -133,8 +131,8 @@ button {
 }
 
 .container {
-    margin: auto;
-    margin-top: 4%;
+    /* margin: auto; */
+    /* margin-top: 4%; */
     text-align: center;
     background: #ffffff;
     border-radius: 10px;
@@ -274,11 +272,78 @@ input[class="newMeetingInp"] {
 
 /*------------------------------------------Notes---------------------------------------------*/
 
-/* .notesContainer{
-    width: 90%;
-    margin: 50px auto;
+.note-card {
+    margin: 20px;
+    width: 20%;
+    /* background: #fff; */
+    box-shadow: 3px 5px 20px 1px rgba(0, 0, 0, 0.25), -5px -5px 30px 7px rgba(0, 0, 0, 0.22);
+    border: 1px solid #ccc;
+    cursor: pointer;
+    margin-bottom: 50px;
+    transition: 0.3s;
+    border-radius: 40px;
+    background: linear-gradient(to top,#24C6DC, #514A9D);
+}
 
-} */
+.note-card-header {
+    text-align: center;
+    padding: 5px 10px; 
+    border-radius: 40px 40px 0px 0px;
+    color: #fff;
+}
+
+.note-card-body {
+    padding: 30px 20px;
+    text-align: center;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 0px 0px 40px 40px;/
+}
+
+.note-card-body .btn {
+    display: block;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(to top, #514A9D, #24C6DC);
+    margin-top: 30px;
+    text-decoration: none;
+    padding: 10px 5px;
+}
+
+.note-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px -10px rgba(0, 0, 0, 0.25);
+}
+
+.note-container {
+    /* margin-top: 4%; */
+    margin-left: 15%;
+    padding-bottom: 20%;
+    text-align: center;
+    border-radius: 10px;
+    /* box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); */
+    overflow: hidden;
+    width: 70%;
+}
+
+@media screen and (max-width: 1000px) {
+    .note-card {
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .note-container {
+        width: 100%;
+    }
+    .note-heading {
+        padding: 20px;
+        font-size: 20px;
+    }
+    .note-card {
+        width: 80%;
+    }
+}
 #descriptionBox{
 
     background-color: #eee;
@@ -288,6 +353,18 @@ input[class="newMeetingInp"] {
     width: 40%;
 
 }
+
+#card-delete{
+    /* margin-left: 50%; */
+    color: #000000;
+    text-decoration:none;
+}
+
+/* #removeNote{
+    text-decoration: none   ;
+    background-color: red;
+    
+} */
 input {
     background-color: #eee;
     border: none;
