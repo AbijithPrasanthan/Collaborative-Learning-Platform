@@ -291,3 +291,12 @@ def update_homework(request, pk=None):
 def delete_homework(request, pk=None):
     Homework.objects.get(id=pk).delete()
     return redirect("homework")
+
+def relax(request, pk=None):
+    return render(request,'CLP/relax.html')
+
+def bubbleshooter(request, pk=None):
+    return render(request,'CLP/bubbleshooter.html')
+
+def wordle(request, pk=None):
+    return render(request,'CLP/wordle.html')

@@ -29,4 +29,7 @@ urlpatterns = [
     path('update_homework/<int:pk>', views.update_homework, name='update-homework'),
     path('delete_homework/<int:pk>', views.delete_homework, name='delete-homework'),
     path('homework/', views.homework, name='homework'),
+    path('relax/', views.relax, name='relax'),
+    path('bubbleshooter/', views.bubbleshooter, name='bubbleshooter'),
+    path('wordle/', views.wordle, name='wordle')
 ]
