@@ -45,3 +45,29 @@ closebtn.onclick =
         modal.style.display =
             "none";
     }; */
+
+var chatbtn=document.getElementsByClassName("chatbotIcon");
+var chatframe=document.getElementById("chatbotFrame");
+
+var cross=document.getElementById("cross");
+var message =document.getElementById("message-circle");
+chatbtn.onclick=function() {popChat()};
+var flag=0;
+
+function popChat(){
+
+    if(flag==0){
+        cross.style.display ="block";
+        message.style.display="none";
+        chatframe.style.display ="block";
+        flag=1;
+    }
+    else{
+        cross.style.display ="none";
+        message.style.display="block";
+        chatframe.style.display ="none";
+        flag=0;
+    }
+    
+
+}

@@ -61,6 +61,15 @@
             </li>
         </ul>
     </nav>
+    <!------------------------------------Chatbot------------------------------------------------------->
+
+    <div class="chatbot">
+        <iframe id="chatbotFrame" scrolling="no" src="https://inforobo.com/wikipedia-bot/"></iframe>
+        <div class="chatbotIcon" onclick="popChat()">
+            <i id="message-circle" data-feather="message-circle"></i>
+            <i id="cross" data-feather="x" style="display: none;"></i>
+        </div>
+    </div>
     <!-- partial -->
     <script src='https://unpkg.com/feather-icons'></script>
     <script src="{% static 'js/dashboardjs.js' %}"></script>
