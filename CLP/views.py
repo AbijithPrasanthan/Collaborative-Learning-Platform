@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib import messages
 from django.views import generic
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import User
@@ -18,43 +19,44 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from Collaborative_Learning_Platform.settings import EMAIL_HOST_USER
 from django.template.defaultfilters import slugify
-<<<<<<< HEAD
-=======
 from pygame import mixer
 from django.http.response import StreamingHttpResponse
 from CLP.camera import Detect
 import winsound
-# Create your views here.
->>>>>>> e8d808bdab6a92478d71807487806961014ac135
-from .models import MeetingInfo, Room, Message, Notes
+import json
+from .models import MeetingInfo, Room, Message, Notes, RewardInfo
 import random
 import string
+from datetime import datetime
 
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
+
 def cam(request):
-	return render(request, 'CLP/cam.html')
+    return render(request, 'CLP/cam.html')
+
 
 def gen(camera):
-    t=0
+    t = 0
     mixer.init()
     mixer.music.load("CLP/Top-Touches-Wow.mp3")
     while True:
-        frame,locs = camera.get_frame()
-        if len(locs) == 0 and t==0:
+        frame, locs = camera.get_frame()
+        if len(locs) == 0 and t == 0:
             mixer.music.play(-1)
-            t=1
-        if len(locs) != 0 and t==1:
+            t = 1
+        if len(locs) != 0 and t == 1:
             mixer.music.stop()
-            t=0
+            t = 0
         yield (b'--frame\r\n'
-				b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
 
 def mask_feed(request):
-	return StreamingHttpResponse(gen(Detect()),
-					content_type='multipart/x-mixed-replace; boundary=frame')
+    return StreamingHttpResponse(gen(Detect()),
+                                 content_type='multipart/x-mixed-replace; boundary=frame')
 
 
 def chat(request):
@@ -211,15 +213,93 @@ def newMeeting(request):
 
 
 def meeting(request, id):
-    print(id)
     randomstr = ''.join(random.choices(
         string.ascii_letters+string.digits, k=8))
 
     if request.method == 'POST' and is_ajax(request):
 
-        info = request.POST['info']
         roomName = request.POST['roomName']
-        print(info, type(info), roomName)
+        req = request.POST['info'][1:-1]
+
+        l = list()
+        temp = ''
+
+        for ch in req:
+            if ch == '{':
+                temp = '{'
+            elif ch == '}':
+                temp += '}'
+                l.append(temp)
+                temp = ''
+            else:
+                temp += ch
+
+        if request.POST['type'] == 'part_join':
+            for info in l:
+                obj = json.loads(info)
+                print()
+                print(obj)
+                print()
+                name = obj['displayName']
+                userID = obj['participantId']
+                print('User ID: ', userID)
+                user = User.objects.get(username=name)
+                meeting = MeetingInfo.objects.get(slug=roomName)
+                userProfInfo = UserProfileInfo.objects.get(user=user)
+                userProfInfo.userId = userID
+                userProfInfo.save()
+                try:
+                    reward = RewardInfo.objects.select_related().filter(
+                        roomName=meeting, username=user)
+                    if len(list(reward)) == 0:
+                        raise ObjectDoesNotExist
+                    else:
+                        reward.userId = userID
+                except ObjectDoesNotExist:
+                    newReward = RewardInfo(
+                        roomName=meeting, username=user, lastJoined=datetime.now(), userId=userID)
+                    newReward.save()
+
+        elif request.POST['type'] == 'part_left':
+            curr_time = datetime.now()
+
+            partId = request.POST['userID[id]']
+
+            leftPart = UserProfileInfo.objects.get(userId=partId)
+            leftPartReward = RewardInfo.objects.get(userId=partId)
+            leftPartLastJoined = leftPartReward.lastJoined.replace(tzinfo=None)
+
+            leftPartTimeInMeet = curr_time - leftPartLastJoined
+
+            if leftPartTimeInMeet.seconds >= 600:
+                rewardPts = (leftPartTimeInMeet.seconds/600)*5
+                leftPart.rewardpoints = rewardPts
+                leftPart.save()
+            leftPartReward.delete()
+
+            for info in l:
+                obj = json.loads(info)
+                name = obj['displayName']
+                user = User.objects.get(username=name)
+                meeting = MeetingInfo.objects.get(slug=roomName)
+                userProfInfo = UserProfileInfo.objects.get(user=user)
+                rewardinfo = list(RewardInfo.objects.select_related().filter(
+                    roomName=meeting, username=user))
+
+                for rewInfo in rewardinfo:
+                    lastJoined = rewInfo.lastJoined.replace(tzinfo=None)
+
+                    time_in_meet = curr_time - lastJoined
+                    print(time_in_meet)
+                    if time_in_meet.seconds < 600:
+                        continue
+                    else:
+                        rewardPts = (time_in_meet.seconds/600)*5
+                        userProfInfo.rewardpoints = rewardPts
+                        userProfInfo.save()
+
+
+# do an update on the reward info for a user instead of creating a new one.
     return render(request, 'CLP/meeting.html', context={'page_title': 'CLP | Meeting'})
 
 

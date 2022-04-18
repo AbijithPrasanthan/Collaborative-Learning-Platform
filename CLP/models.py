@@ -1,7 +1,3 @@
-'''
-make email unique if not already
-'''
-
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
@@ -22,6 +18,8 @@ class UserProfileInfo(models.Model):
     # additional fields.
     #image_upload = models.ImageField(upload_to='user_uploaded_image',blank=True)
     rollno = models.CharField(max_length=16, default='1234567891234567')
+    rewardpoints = models.PositiveIntegerField(default=0)
+    userId = models.TextField(default="abcd")
 
     def __str__(self):
         return self.user.username
@@ -42,15 +40,25 @@ class MeetingInfo(models.Model):
         }
         return str(res)
 
+
+class RewardInfo(models.Model):
+    roomName = models.ForeignKey(MeetingInfo, on_delete=models.CASCADE)
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    lastJoined = models.DateTimeField(null=True)
+    userId = models.TextField(unique=True)
+
+
 class Room(models.Model):
     name = models.CharField(max_length=1000, unique=True)
     username = models.CharField(max_length=1000000, default="Unknown")
 
+
 class Message(models.Model):
     value = models.CharField(max_length=1000000)
-    date = models.DateTimeField(default=datetime.now,blank=True)
+    date = models.DateTimeField(default=datetime.now, blank=True)
     user = models.CharField(max_length=1000000)
     room = models.CharField(max_length=1000000)
+
 
 class Notes(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -59,6 +67,7 @@ class Notes(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class Homework(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
