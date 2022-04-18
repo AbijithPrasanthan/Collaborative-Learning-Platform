@@ -45,7 +45,7 @@
                 <a href="/CLP/login" class="navbar__link"><i data-feather="users"></i><span>Login</span></a>
             </li>
             <li class="navbar__item">
-                <a href="/CLP/cam" class="navbar__link"><i data-feather="settings"></i><span>Study Mode</span></a>
+                <a href="/CLP/cam" class="navbar__link"><i data-feather="slack"></i><span>Study Mode</span></a>
             </li>
             <li class="navbar__item">
                 <a href="/CLP/notes" class="navbar__link"><i data-feather="book-open"></i><span>Notes</span></a>
@@ -54,10 +54,22 @@
                 <a href="/admin" class="navbar__link"><i data-feather="settings"></i><span>Admin</span></a>
             </li>
             <li class="navbar__item">
+                <a href="/CLP/relax" class="navbar__link"><i data-feather="coffee"></i><span>Relax</span></a>
+            </li>
+            <li class="navbar__item">
                 <a href="{% url 'user_logout' %}" class="navbar__link"><i data-feather="log-out"></i><span>Sign Out</span></a>
             </li>
         </ul>
     </nav>
+    <!------------------------------------Chatbot------------------------------------------------------->
+
+    <div class="chatbot">
+        <iframe id="chatbotFrame" scrolling="no" src="https://inforobo.com/wikipedia-bot/"></iframe>
+        <div class="chatbotIcon" onclick="popChat()">
+            <i id="message-circle" data-feather="message-circle"></i>
+            <i id="cross" data-feather="x" style="display: none;"></i>
+        </div>
+    </div>
     <!-- partial -->
     <script src='https://unpkg.com/feather-icons'></script>
     <script src="{% static 'js/dashboardjs.js' %}"></script>

@@ -309,6 +309,7 @@ def showDetails(request, id):
 
 
 def notes(request):
+
     if request.method == 'POST':
         form = NotesForm(request.POST)
         if form.is_valid():
@@ -320,7 +321,11 @@ def notes(request):
     else:
         form = NotesForm()
     notes = Notes.objects.filter(user=request.user).values()
-    context = {'notes': notes, 'form': form}
+    data = list(Notes.objects.values())
+    content = False
+    if len(data) != 0:
+        content = True
+    context = {'notes': notes, 'content': content, 'form': form}
     return render(request, 'CLP/student/notes.html', context)
 
 
@@ -382,3 +387,15 @@ def update_homework(request, pk=None):
 def delete_homework(request, pk=None):
     Homework.objects.get(id=pk).delete()
     return redirect("homework")
+
+
+def relax(request, pk=None):
+    return render(request, 'CLP/relax.html')
+
+
+def bubbleshooter(request, pk=None):
+    return render(request, 'CLP/bubbleshooter.html')
+
+
+def wordle(request, pk=None):
+    return render(request, 'CLP/wordle.html')

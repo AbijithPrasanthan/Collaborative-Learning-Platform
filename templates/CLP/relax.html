@@ -1,0 +1,25 @@
+{% extends 'CLP/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div >
+    <img id="banner" src="/static/images/relaxBanner.png">
+
+</div>
+<div class="gameContainer">
+    <div class="gametile">
+        <img id="gamePrev"src="/static/images/bubbleshooter.jpg">
+        <h2 id="gameTitle">Bubble Shooter</h2>
+        <a href="/CLP/bubbleshooter"><button class="gameBtn">Play</button></a>
+    </div>
+    <div class="gametile">
+        <img id="gamePrev" src="/static/images/wordle.PNG">
+        <h2 id="gameTitle">Wordle</h2>
+        <a href="/CLP/wordle"><button class="gameBtn">Play</button></a>
+    </div>
+</div>
+
+
+
+{% endblock content %}

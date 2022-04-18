@@ -1,10 +1,18 @@
-<html>
-  <head>
-    <title>Video Live Stream</title>
-  </head>
-  <body>
-    <h1>Video Live Stream</h1>
+{% extends 'CLP/base.html' %}
+{% load static %}
+{% block content %}
 
-     <img src="{% url 'mask_feed' %}">
-  </body>
-</html>
+<div class="studyMode">
+  <h2 id="cam_heading">Study Mode</h2>
+  <div class="startBtn">
+    <button>Start</button>
+  </div>
+  <div class="stopBtn">
+    <button>Stop</button>
+  </div>
+  <img id="cam" src="{% url 'mask_feed' %}">
+</body>
+
+
+
+{% endblock content %}
