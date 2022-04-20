@@ -433,12 +433,36 @@ def relax(request):
 
 
 def bubbleshooter(request):
-    return render(request, 'CLP/bubbleshooter.html')
+    userObj = User.objects.get(username=request.user)
+    userProf = UserProfileInfo.objects.get(user=userObj)
+    if (userProf.rewardpoints - 10) >= 0:
+        userProf.rewardpoints = userProf.rewardpoints - 10
+        userProf.save()
+        return render(request, 'CLP/bubbleshooter.html')
+    else:
+        rewardPts = userProf.rewardpoints
+        return render(request, 'CLP/relax.html', context={'rewardPts': rewardPts})
 
 
 def wordle(request):
-    return render(request, 'CLP/wordle.html')
+    userObj = User.objects.get(username=request.user)
+    userProf = UserProfileInfo.objects.get(user=userObj)
+    if (userProf.rewardpoints - 10) >= 0:
+        userProf.rewardpoints = userProf.rewardpoints - 10
+        userProf.save()
+        return render(request, 'CLP/wordle.html')
+    else:
+        rewardPts = userProf.rewardpoints
+        return render(request, 'CLP/relax.html', context={'rewardPts': rewardPts})
+
 
 def game2048(request, pk=None):
-    return render(request, 'CLP/game2048.html')
-
+    userObj = User.objects.get(username=request.user)
+    userProf = UserProfileInfo.objects.get(user=userObj)
+    if (userProf.rewardpoints - 10) >= 0:
+        userProf.rewardpoints = userProf.rewardpoints - 10
+        userProf.save()
+        return render(request, 'CLP/game2048.html')
+    else:
+        rewardPts = userProf.rewardpoints
+        return render(request, 'CLP/relax.html', context={'rewardPts': rewardPts})
