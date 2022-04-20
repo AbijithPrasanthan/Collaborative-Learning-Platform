@@ -38,24 +38,41 @@ def cam(request):
     return render(request, 'CLP/cam.html')
 
 
-def gen(camera):
+def gen(camera, request):
     t = 0
     mixer.init()
     mixer.music.load("CLP/Top-Touches-Wow.mp3")
+    startTime = datetime.now()
+    endTime = 0
     while True:
         frame, locs = camera.get_frame()
         if len(locs) == 0 and t == 0:
+            endTime = datetime.now()
             mixer.music.play(-1)
             t = 1
         if len(locs) != 0 and t == 1:
+            if startTime == 0:
+                startTime = datetime.now()
             mixer.music.stop()
             t = 0
+        if endTime:
+            print(endTime, startTime)
+            diff = endTime-startTime
+            reward = (diff.seconds/60)*5
+            userProfInfo = UserProfileInfo.objects.get(user=request.user)
+            curr_rew = userProfInfo.rewardpoints + reward
+            userProfInfo.rewardpoints = curr_rew
+            print(curr_rew)
+            userProfInfo.save()
+            startTime = 0
+            endTime = 0
+
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 
 def mask_feed(request):
-    return StreamingHttpResponse(gen(Detect()),
+    return StreamingHttpResponse(gen(Detect(), request),
                                  content_type='multipart/x-mixed-replace; boundary=frame')
 
 
@@ -124,7 +141,7 @@ def index(request):
         popup = True
         id_ele = request.POST['id']
         data_id = list(MeetingInfo.objects.filter(slug=id_ele))
-    data = zip(date_time,data)
+    data = zip(date_time, data)
     return render(request, 'CLP/dashboard.html', context={'page_title': 'CLP | Dashboard', 'data': data, 'content': content, 'popup': popup, 'rewardPts': rewardPts})
 
 
