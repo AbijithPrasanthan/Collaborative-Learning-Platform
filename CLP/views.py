@@ -102,10 +102,15 @@ def getMessages(request, room):
 
 
 def index(request):
+    rewardPts = 0
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     userObj = User.objects.get(username=request.user)
-    userProf = UserProfileInfo.objects.get(user=userObj)
+    try:
+        userProf = UserProfileInfo.objects.get(user=userObj)
+        rewardPts = userProf.rewardpoints
+    except ObjectDoesNotExist:
+        rewardPts = 0
     data = list(MeetingInfo.objects.values())
     popup = True
     content = False
@@ -116,7 +121,7 @@ def index(request):
         popup = True
         id_ele = request.POST['id']
         data_id = list(MeetingInfo.objects.filter(slug=id_ele))
-    return render(request, 'CLP/dashboard.html', context={'page_title': 'CLP | Dashboard', 'data': data, 'content': content, 'popup': popup, 'rewardPts': userProf.rewardpoints})
+    return render(request, 'CLP/dashboard.html', context={'page_title': 'CLP | Dashboard', 'data': data, 'content': content, 'popup': popup, 'rewardPts': rewardPts})
 
 
 def login_(request):
@@ -393,13 +398,22 @@ def delete_homework(request, pk=None):
     return redirect("homework")
 
 
-def relax(request, pk=None):
-    return render(request, 'CLP/relax.html')
+def relax(request):
+    rewardPts = 0
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('login'))
+    userObj = User.objects.get(username=request.user)
+    try:
+        userProf = UserProfileInfo.objects.get(user=userObj)
+        rewardPts = userProf.rewardpoints
+    except ObjectDoesNotExist:
+        rewardPts = 0
+    return render(request, 'CLP/relax.html', context={'page_title': 'CLP | Relax', 'rewardPts': rewardPts})
 
 
-def bubbleshooter(request, pk=None):
+def bubbleshooter(request):
     return render(request, 'CLP/bubbleshooter.html')
 
 
-def wordle(request, pk=None):
+def wordle(request):
     return render(request, 'CLP/wordle.html')
