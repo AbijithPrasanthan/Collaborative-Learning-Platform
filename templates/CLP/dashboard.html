@@ -1,7 +1,17 @@
 {% extends "CLP/base.html" %} {% block content %} {% load static %}
-<div class="cards-list">
-    {% if content %} {% for val in data %} {% csrf_token %}
-    <div class="card" id="{{ val.slug }}" onclick="location.href='/CLP/meeting/{{ val.slug }}';">
+<!------------------------------------ Rewards ---------------------------------------------------------->
+<div class="rewards">
+    <div class="rewardIcon">
+        <img id="trophy" src="/static/images/award.png">
+    </div>
+    <div class="rewardAmount">
+        <h3>{{ rewardPts }}</h3>
+    </div>
+</div>
+
+<div class="cards-list" id='meet' >
+    {% if content %} {% for d,val in data %} {% csrf_token %}
+    <div class="card card{{forloop.counter0}}" id="{{ val.slug }}" ondblclick="location.href='/CLP/meeting/{{ val.slug }}';" >
         <div class="card-header " id="card-header ">
             <h1>{{ val.topic }}</h1>
         </div>
@@ -9,7 +19,7 @@
             <p>
                 {{val.sub}}
             </p>
-            <a class="btn " id="btn-time ">{{val.time}}</a>
+            <a class="btn " id="demo{{forloop.counter0}}" onclick="counter('{{ d }}','demo{{forloop.counter0}}', '.card{{forloop.counter0}}')"> </a>
         </div>
     </div>
     {% endfor %} {% else %}
@@ -37,8 +47,11 @@
 
 </div>
 {% endblock %} {% block js %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
 <script>
+
+
+
     $(".card").click(function() {
         var id = $(this).attr("id");
         $.ajax({
@@ -56,6 +69,49 @@
             }
         })
     })
+
+
+
+
+    function counter(date, ids, cd){
+        $(cd).css("pointer-events", "none");
+
+    var countDownDate = new Date(date.slice(0,19)).getTime();
+// Update the count down every 1 second
+    var x = setInterval(function() {
+  // Get today's date and time
+    var now = new Date().getTime();
+  // Find the distance between now and the count down date
+    var distance = countDownDate - now;
+  // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Output the result in an element with id="demo"
+    document.getElementById(ids).innerHTML = days + "d " + hours + "h "
+    + minutes + "m " + seconds + "s ";
+
+    // If the count down is over, write some text
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById(ids).innerHTML = "Start Meeting";
+        $(cd).css("pointer-events", "auto");
+
+    }
+  }, 1000);
+}
+
+document.addEventListener(
+ 'load', function(event) {
+  a = document.getElementsByClassName('btn');
+  for (let i = 0; i < a.length; i++){
+    document.getElementsByClassName('btn')[i].click();
+  }
+ },
+ true//capturing phase!!
+);
 </script>
 
 {% endblock %}

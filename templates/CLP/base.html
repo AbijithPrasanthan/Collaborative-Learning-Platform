@@ -23,15 +23,6 @@
     <div class="Title">
         <h1>Collaborative Learning Platform</h1>
     </div>
-    <!------------------------------------Rewards---------------------------------------------------------->
-    <div class="rewards">
-        <div class="rewardIcon">
-            <img id="trophy" src="/static/images/award.png">
-        </div>
-        <div class="rewardAmount">
-            <h3>567</h3>
-        </div>
-    </div>
 
     <!------------------------------------Cards---------------------------------------------------------->
 
@@ -59,9 +50,11 @@
             <li class="navbar__item">
                 <a href="/CLP/notes" class="navbar__link"><i data-feather="book-open"></i><span>Notes</span></a>
             </li>
+            {% if isadmin %}
             <li class="navbar__item">
                 <a href="/admin" class="navbar__link"><i data-feather="settings"></i><span>Admin</span></a>
             </li>
+            {% endif %}
             <li class="navbar__item">
                 <a href="/CLP/relax" class="navbar__link"><i data-feather="coffee"></i><span>Relax</span></a>
             </li>

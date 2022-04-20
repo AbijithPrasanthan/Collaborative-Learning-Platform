@@ -38,24 +38,41 @@ def cam(request):
     return render(request, 'CLP/cam.html')
 
 
-def gen(camera):
+def gen(camera, request):
     t = 0
     mixer.init()
     mixer.music.load("CLP/Top-Touches-Wow.mp3")
+    startTime = datetime.now()
+    endTime = 0
     while True:
         frame, locs = camera.get_frame()
         if len(locs) == 0 and t == 0:
+            endTime = datetime.now()
             mixer.music.play(-1)
             t = 1
         if len(locs) != 0 and t == 1:
+            if startTime == 0:
+                startTime = datetime.now()
             mixer.music.stop()
             t = 0
+        if endTime:
+            print(endTime, startTime)
+            diff = endTime-startTime
+            reward = (diff.seconds/60)*5
+            userProfInfo = UserProfileInfo.objects.get(user=request.user)
+            curr_rew = userProfInfo.rewardpoints + reward
+            userProfInfo.rewardpoints = curr_rew
+            print(curr_rew)
+            userProfInfo.save()
+            startTime = 0
+            endTime = 0
+
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 
 def mask_feed(request):
-    return StreamingHttpResponse(gen(Detect()),
+    return StreamingHttpResponse(gen(Detect(), request),
                                  content_type='multipart/x-mixed-replace; boundary=frame')
 
 
@@ -102,17 +119,30 @@ def getMessages(request, room):
 
 
 def index(request):
+    rewardPts = 0
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('login'))
+    userObj = User.objects.get(username=request.user)
+    try:
+        userProf = UserProfileInfo.objects.get(user=userObj)
+        rewardPts = userProf.rewardpoints
+    except ObjectDoesNotExist:
+        rewardPts = 0
     data = list(MeetingInfo.objects.values())
     popup = True
     content = False
     data_id = []
+    date_time = []
+    for i in data:
+        date_time.append(str(i["time"]))
     if len(data) != 0:
         content = True
     if request.method == 'POST' and is_ajax(request):
         popup = True
         id_ele = request.POST['id']
         data_id = list(MeetingInfo.objects.filter(slug=id_ele))
-    return render(request, 'CLP/dashboard.html', context={'page_title': 'CLP | Dashboard', 'data': data, 'content': content, 'popup': popup})
+    data = zip(date_time, data)
+    return render(request, 'CLP/dashboard.html', context={'page_title': 'CLP | Dashboard', 'data': data, 'content': content, 'popup': popup, 'rewardPts': rewardPts})
 
 
 def login_(request):
@@ -389,15 +419,24 @@ def delete_homework(request, pk=None):
     return redirect("homework")
 
 
-def relax(request, pk=None):
-    return render(request, 'CLP/relax.html')
+def relax(request):
+    rewardPts = 0
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('login'))
+    userObj = User.objects.get(username=request.user)
+    try:
+        userProf = UserProfileInfo.objects.get(user=userObj)
+        rewardPts = userProf.rewardpoints
+    except ObjectDoesNotExist:
+        rewardPts = 0
+    return render(request, 'CLP/relax.html', context={'page_title': 'CLP | Relax', 'rewardPts': rewardPts})
 
 
-def bubbleshooter(request, pk=None):
+def bubbleshooter(request):
     return render(request, 'CLP/bubbleshooter.html')
 
 
-def wordle(request, pk=None):
+def wordle(request):
     return render(request, 'CLP/wordle.html')
 
 def game2048(request, pk=None):
