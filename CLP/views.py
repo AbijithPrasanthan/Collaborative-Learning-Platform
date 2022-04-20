@@ -115,12 +115,16 @@ def index(request):
     popup = True
     content = False
     data_id = []
+    date_time = []
+    for i in data:
+        date_time.append(str(i["time"]))
     if len(data) != 0:
         content = True
     if request.method == 'POST' and is_ajax(request):
         popup = True
         id_ele = request.POST['id']
         data_id = list(MeetingInfo.objects.filter(slug=id_ele))
+    data = zip(date_time,data)
     return render(request, 'CLP/dashboard.html', context={'page_title': 'CLP | Dashboard', 'data': data, 'content': content, 'popup': popup, 'rewardPts': rewardPts})
 
 
