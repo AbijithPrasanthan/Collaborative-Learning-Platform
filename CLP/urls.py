@@ -31,5 +31,6 @@ urlpatterns = [
     path('homework/', views.homework, name='homework'),
     path('relax/', views.relax, name='relax'),
     path('bubbleshooter/', views.bubbleshooter, name='bubbleshooter'),
-    path('wordle/', views.wordle, name='wordle')
+    path('wordle/', views.wordle, name='wordle'),
+    path('game2048/', views.game2048, name='game2048')
 ]

@@ -399,3 +399,7 @@ def bubbleshooter(request, pk=None):
 
 def wordle(request, pk=None):
     return render(request, 'CLP/wordle.html')
+
+def game2048(request, pk=None):
+    return render(request, 'CLP/game2048.html')
+
