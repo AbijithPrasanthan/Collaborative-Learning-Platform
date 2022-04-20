@@ -102,6 +102,10 @@ def getMessages(request, room):
 
 
 def index(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('login'))
+    userObj = User.objects.get(username=request.user)
+    userProf = UserProfileInfo.objects.get(user=userObj)
     data = list(MeetingInfo.objects.values())
     popup = True
     content = False
@@ -112,7 +116,7 @@ def index(request):
         popup = True
         id_ele = request.POST['id']
         data_id = list(MeetingInfo.objects.filter(slug=id_ele))
-    return render(request, 'CLP/dashboard.html', context={'page_title': 'CLP | Dashboard', 'data': data, 'content': content, 'popup': popup})
+    return render(request, 'CLP/dashboard.html', context={'page_title': 'CLP | Dashboard', 'data': data, 'content': content, 'popup': popup, 'rewardPts': userProf.rewardpoints})
 
 
 def login_(request):

@@ -1,4 +1,15 @@
 {% extends "CLP/base.html" %} {% block content %} {% load static %}
+<!------------------------------------ Rewards ---------------------------------------------------------->
+<div class="rewards">
+    <div class="rewardIcon">
+        <img id="trophy" src="/static/images/award.png">
+    </div>
+    <div class="rewardAmount">
+        <h3>{{ rewardPts }}</h3>
+    </div>
+</div>
+
+
 <div class="cards-list">
     {% if content %} {% for val in data %} {% csrf_token %}
     <div class="card" id="{{ val.slug }}" onclick="location.href='/CLP/meeting/{{ val.slug }}';">
